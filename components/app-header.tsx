@@ -4,8 +4,6 @@ import { SignOutButton } from "@/components/client/sign-out-button";
 const NAV = [
   { href: "/library", label: "Library" },
   { href: "/saved", label: "Saved" },
-  { href: "/mixes", label: "Mixes" },
-  { href: "/projects", label: "Boards" },
 ];
 
 export function AppHeader({ name }: { name: string }) {
