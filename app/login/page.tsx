@@ -1,49 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { signIn, signUp } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 
 export default function LoginPage() {
   return (
     <Suspense>
-      <LoginForm />
+      <LoginCard />
     </Suspense>
   );
 }
 
-function LoginForm() {
-  const router = useRouter();
+function LoginCard() {
   const params = useSearchParams();
   const redirectTo = params.get("redirect") || "/dashboard";
 
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleGoogle() {
     setError(null);
     setPending(true);
-
-    const result =
-      mode === "signup"
-        ? await signUp.email({ name, email, password })
-        : await signIn.email({ email, password });
-
-    setPending(false);
-
-    if (result.error) {
-      setError(result.error.message ?? "Something went wrong.");
-      return;
+    const result = await signIn.social({
+      provider: "google",
+      callbackURL: redirectTo,
+    });
+    // On success the browser redirects to Google; we only reach here on error.
+    if (result?.error) {
+      setError(result.error.message ?? "Sign-in failed.");
+      setPending(false);
     }
-
-    router.push(redirectTo);
-    router.refresh();
   }
 
   return (
@@ -54,105 +42,56 @@ function LoginForm() {
         </Link>
 
         <h1 className="mt-10 font-serif text-3xl tracking-tight">
-          {mode === "signup" ? "Create your account" : "Welcome back"}
+          Welcome back
         </h1>
         <p className="mt-2 text-sm text-muted">
-          {mode === "signup"
-            ? "Start building a design profile that travels."
-            : "Sign in to your saved styles and mixes."}
+          This is a private app. Sign in with the allowlisted Google account.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          {mode === "signup" && (
-            <Field
-              label="Name"
-              type="text"
-              value={name}
-              onChange={setName}
-              autoComplete="name"
-              required
-            />
-          )}
-          <Field
-            label="Email"
-            type="email"
-            value={email}
-            onChange={setEmail}
-            autoComplete="email"
-            required
-          />
-          <Field
-            label="Password"
-            type="password"
-            value={password}
-            onChange={setPassword}
-            autoComplete={mode === "signup" ? "new-password" : "current-password"}
-            minLength={8}
-            required
-          />
+        <button
+          type="button"
+          onClick={handleGoogle}
+          disabled={pending}
+          className="mt-8 flex w-full items-center justify-center gap-3 rounded-full border border-line-strong bg-paper-raised py-3 text-ink transition-colors hover:border-ink disabled:opacity-60"
+        >
+          <GoogleMark />
+          {pending ? "Redirecting to Google" : "Continue with Google"}
+        </button>
 
-          {error && (
-            <p className="text-sm text-accent" role="alert">
-              {error}
-            </p>
-          )}
+        {error && (
+          <p className="mt-4 text-sm text-accent" role="alert">
+            {error}
+          </p>
+        )}
 
-          <button
-            type="submit"
-            disabled={pending}
-            className="w-full rounded-full bg-ink py-2.5 text-paper transition-colors hover:bg-accent disabled:opacity-60"
-          >
-            {pending
-              ? "Working"
-              : mode === "signup"
-                ? "Create account"
-                : "Sign in"}
-          </button>
-        </form>
-
-        <p className="mt-6 text-sm text-muted">
-          {mode === "signup" ? "Already have an account?" : "New here?"}{" "}
-          <button
-            type="button"
-            onClick={() => {
-              setError(null);
-              setMode(mode === "signup" ? "signin" : "signup");
-            }}
-            className="text-ink underline underline-offset-4 hover:text-accent"
-          >
-            {mode === "signup" ? "Sign in" : "Create an account"}
-          </button>
+        <p className="mt-8 text-xs text-muted">
+          Access is limited to approved accounts. Other Google accounts will be
+          declined.
         </p>
       </div>
     </div>
   );
 }
 
-function Field({
-  label,
-  type,
-  value,
-  onChange,
-  ...rest
-}: {
-  label: string;
-  type: string;
-  value: string;
-  onChange: (v: string) => void;
-  autoComplete?: string;
-  required?: boolean;
-  minLength?: number;
-}) {
+function GoogleMark() {
   return (
-    <label className="block">
-      <span className="eyebrow">{label}</span>
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="mt-1.5 w-full rounded-lg border border-line-strong bg-paper-raised px-3 py-2.5 text-ink outline-none transition-colors focus:border-ink"
-        {...rest}
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
+      <path
+        fill="#4285F4"
+        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
       />
-    </label>
+      <path
+        fill="#34A853"
+        d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+      />
+      <path
+        fill="#EA4335"
+        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"
+      />
+    </svg>
   );
 }
