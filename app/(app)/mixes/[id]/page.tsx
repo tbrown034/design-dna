@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { DeleteMixButton } from "@/components/client/delete-mix-button";
+import { GenerateProfileButton } from "@/components/client/generate-profile-button";
 import { MixEditor } from "@/components/client/mix-editor";
 import { getEntry } from "@/data/library";
 import { requireUser } from "@/lib/dal";
@@ -69,8 +70,15 @@ async function MixDetail({ id }: { id: string }) {
             {mix.name}
           </h1>
         </div>
-        <DeleteMixButton mixId={mix.id} />
+        <div className="flex items-center gap-5">
+          <DeleteMixButton mixId={mix.id} />
+          <GenerateProfileButton mixId={mix.id} />
+        </div>
       </div>
+      <p className="mt-3 max-w-xl text-sm text-muted">
+        Set your weights and focus, then generate a design profile and ready-to-paste
+        AI prompts from this mix.
+      </p>
 
       <MixEditor
         // Remount on add/remove so local weight state stays in sync.

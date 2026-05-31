@@ -5,6 +5,7 @@ const NAV = [
   { href: "/library", label: "Library" },
   { href: "/saved", label: "Saved" },
   { href: "/mixes", label: "Mixes" },
+  { href: "/profiles", label: "Profiles" },
 ];
 
 export function AppHeader({ name }: { name: string }) {
