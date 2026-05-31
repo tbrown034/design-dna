@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { Logo } from "@/components/logo";
 import { signIn } from "@/lib/auth-client";
 
 export default function LoginPage() {
@@ -37,8 +38,8 @@ function LoginCard() {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center bg-paper px-6">
       <div className="w-full max-w-sm">
-        <Link href="/" className="font-serif text-2xl tracking-tight text-ink">
-          Design DNA
+        <Link href="/">
+          <Logo markClassName="h-7 w-7" />
         </Link>
 
         <h1 className="mt-10 font-serif text-3xl tracking-tight">
