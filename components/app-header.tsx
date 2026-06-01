@@ -37,6 +37,20 @@ export function AppHeader({ name }: { name: string }) {
           <SignOutButton />
         </div>
       </div>
+
+      {/* Mobile nav: horizontally scrollable strip so logged-in phone users can
+          still reach every section (the inline nav is hidden under sm). */}
+      <nav className="flex gap-5 overflow-x-auto border-t border-line px-6 py-2.5 text-sm sm:hidden">
+        {NAV.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="whitespace-nowrap text-muted transition-colors hover:text-ink"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }
