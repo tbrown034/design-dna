@@ -1,0 +1,42 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import { deleteProject } from "@/lib/actions/moodboard";
+
+export function DeleteProjectButton({ projectId }: { projectId: string }) {
+  const [confirming, setConfirming] = useState(false);
+  const [pending, startTransition] = useTransition();
+
+  if (!confirming) {
+    return (
+      <button
+        type="button"
+        onClick={() => setConfirming(true)}
+        className="text-sm text-muted transition-colors hover:text-accent"
+      >
+        Delete board
+      </button>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3 text-sm">
+      <span className="text-muted">Delete this board?</span>
+      <button
+        type="button"
+        disabled={pending}
+        onClick={() => startTransition(async () => { await deleteProject(projectId); })}
+        className="rounded-full bg-accent px-3 py-1.5 text-paper transition-colors hover:opacity-90 disabled:opacity-60"
+      >
+        {pending ? "Deleting" : "Yes, delete"}
+      </button>
+      <button
+        type="button"
+        onClick={() => setConfirming(false)}
+        className="text-muted hover:text-ink"
+      >
+        Cancel
+      </button>
+    </div>
+  );
+}

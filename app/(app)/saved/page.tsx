@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { PatternTagger } from "@/components/client/pattern-tagger";
 import { getEntry } from "@/data/library";
 import { requireUser } from "@/lib/dal";
+import { getPatternTagsBySlug } from "@/lib/queries/patterns";
 import { getSavedItems } from "@/lib/queries/saved";
 
 export const metadata: Metadata = { title: "Saved" };
@@ -28,6 +30,7 @@ export default function SavedPage() {
 async function SavedList() {
   const user = await requireUser();
   const items = await getSavedItems(user.id);
+  const tagsBySlug = await getPatternTagsBySlug(user.id);
 
   if (items.length === 0) {
     return (
@@ -52,26 +55,33 @@ async function SavedList() {
         const entry = getEntry(item.librarySlug);
         if (!entry) return null;
         return (
-          <Link
+          <div
             key={item.id}
-            href={`/library/${entry.slug}`}
             className="group rounded-2xl border border-line bg-paper-raised p-5 transition-colors hover:border-ink"
           >
-            <div className="flex gap-1.5" aria-hidden>
-              {entry.palette.map((s) => (
-                <span
-                  key={s.hex}
-                  style={{ background: s.hex }}
-                  className="h-6 w-6 rounded-full border border-line"
-                />
-              ))}
+            <Link href={`/library/${entry.slug}`} className="block">
+              <div className="flex gap-1.5" aria-hidden>
+                {entry.palette.map((s) => (
+                  <span
+                    key={s.hex}
+                    style={{ background: s.hex }}
+                    className="h-6 w-6 rounded-full border border-line"
+                  />
+                ))}
+              </div>
+              <p className="eyebrow mt-4">{entry.kind}</p>
+              <h3 className="mt-1 font-serif text-xl tracking-tight">
+                {entry.name}
+              </h3>
+              <p className="mt-1 text-sm text-muted">{entry.tagline}</p>
+            </Link>
+            <div className="mt-3 border-t border-line pt-3">
+              <PatternTagger
+                slug={entry.slug}
+                initial={tagsBySlug[entry.slug] ?? []}
+              />
             </div>
-            <p className="eyebrow mt-4">{entry.kind}</p>
-            <h3 className="mt-1 font-serif text-xl tracking-tight">
-              {entry.name}
-            </h3>
-            <p className="mt-1 text-sm text-muted">{entry.tagline}</p>
-          </Link>
+          </div>
         );
       })}
     </div>
