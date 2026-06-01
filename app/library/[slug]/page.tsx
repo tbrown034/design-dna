@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SaveButton } from "@/components/client/save-button";
-import { allSlugs, getEntry } from "@/data/library";
+import { StylePreview } from "@/components/style-preview";
+import { allSlugs, getEntry, type LibraryEntry } from "@/data/library";
 
 export function generateStaticParams() {
   return allSlugs().map((slug) => ({ slug }));
@@ -49,6 +50,21 @@ export default async function EntryPage({
       </header>
 
       <p className="mt-8 text-lg leading-relaxed">{entry.summary}</p>
+
+      <section className="mt-10">
+        <h2 className="eyebrow">Preview</h2>
+        <p className="mt-1 text-sm text-muted">
+          An illustrative mock rendered in this aesthetic.
+        </p>
+        <div className="mt-3">
+          <StylePreview entry={entry} />
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="eyebrow">Real-world examples</h2>
+        <ExampleLinks entry={entry} />
+      </section>
 
       <section className="mt-10">
         <h2 className="eyebrow">Palette</h2>
@@ -99,16 +115,42 @@ export default async function EntryPage({
         ))}
       </section>
 
-      {entry.url && (
-        <a
-          href={entry.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 inline-block text-sm text-accent underline underline-offset-4"
-        >
-          Visit {entry.name} →
-        </a>
-      )}
     </article>
+  );
+}
+
+function ExampleLinks({ entry }: { entry: LibraryEntry }) {
+  // Collect real-world references: an influence's own URL plus any curated
+  // examples. Generic styles get example links later (a fillable slot).
+  const links = [
+    ...(entry.url ? [{ name: entry.name, url: entry.url }] : []),
+    ...(entry.examples ?? []),
+  ].filter(
+    (l, i, arr) => arr.findIndex((x) => x.url === l.url) === i,
+  );
+
+  if (links.length === 0) {
+    return (
+      <p className="mt-3 text-sm text-muted">
+        Example sites for this style are coming soon.
+      </p>
+    );
+  }
+
+  return (
+    <ul className="mt-3 flex flex-wrap gap-2">
+      {links.map((l) => (
+        <li key={l.url}>
+          <a
+            href={l.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-full border border-line-strong px-3 py-1.5 text-sm text-ink transition-colors hover:border-ink"
+          >
+            {l.name} →
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }

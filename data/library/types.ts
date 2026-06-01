@@ -24,4 +24,7 @@ export type LibraryEntry = {
   tags: string[];
   /** For influences: the real-world reference. */
   url?: string;
+  /** Real-world example sites that exemplify this entry. For generic styles
+   *  these are supplied later (link slots); influences also expose `url`. */
+  examples?: { name: string; url: string }[];
 };
