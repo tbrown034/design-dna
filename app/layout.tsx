@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,10 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   axes: ["opsz", "SOFT"],
 });
+
+export const viewport: Viewport = {
+  themeColor: "#faf8f3",
+};
 
 export const metadata: Metadata = {
   title: {
