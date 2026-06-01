@@ -4,6 +4,10 @@ import type { LibraryEntry } from "./types";
 export const styles: LibraryEntry[] = [
   {
     slug: "minimalist",
+    examples: [
+      { name: "Apple", url: "https://www.apple.com" },
+      { name: "Notion", url: "https://www.notion.com" },
+    ],
     name: "Minimalist",
     kind: "style",
     tagline: "Say more with less.",
@@ -28,6 +32,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "brutalist",
+    examples: [
+      { name: "Craigslist", url: "https://craigslist.org" },
+      { name: "Brutalist Websites", url: "https://brutalistwebsites.com" },
+    ],
     name: "Brutalist",
     kind: "style",
     tagline: "Raw structure, no apologies.",
@@ -52,6 +60,7 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "retro",
+    examples: [{ name: "Space Jam (1996)", url: "https://www.spacejam.com/1996/" }],
     name: "Retro",
     kind: "style",
     tagline: "Borrowed warmth from another decade.",
@@ -76,6 +85,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "editorial",
+    examples: [
+      { name: "The New York Times", url: "https://www.nytimes.com" },
+      { name: "The Atlantic", url: "https://www.theatlantic.com" },
+    ],
     name: "Editorial",
     kind: "style",
     tagline: "Designed to be read.",
@@ -100,6 +113,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "corporate",
+    examples: [
+      { name: "IBM", url: "https://www.ibm.com" },
+      { name: "Microsoft", url: "https://www.microsoft.com" },
+    ],
     name: "Corporate",
     kind: "style",
     tagline: "Trustworthy, predictable, on-brand.",
@@ -124,6 +141,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "luxury",
+    examples: [
+      { name: "Chanel", url: "https://www.chanel.com" },
+      { name: "Rolex", url: "https://www.rolex.com" },
+    ],
     name: "Luxury",
     kind: "style",
     tagline: "Quiet confidence and space.",
@@ -148,6 +169,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "playful",
+    examples: [
+      { name: "Duolingo", url: "https://www.duolingo.com" },
+      { name: "Mailchimp", url: "https://mailchimp.com" },
+    ],
     name: "Playful",
     kind: "style",
     tagline: "Color, motion, and a wink.",
@@ -172,6 +197,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "government",
+    examples: [
+      { name: "GOV.UK", url: "https://www.gov.uk" },
+      { name: "USA.gov", url: "https://www.usa.gov" },
+    ],
     name: "Government",
     kind: "style",
     tagline: "Accessible, plain, and for everyone.",
@@ -196,6 +225,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "dashboard",
+    examples: [
+      { name: "Linear", url: "https://linear.app" },
+      { name: "Vercel", url: "https://vercel.com" },
+    ],
     name: "Dashboard",
     kind: "style",
     tagline: "Dense signal, fast scanning.",
@@ -220,6 +253,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "newspaper",
+    examples: [
+      { name: "The Wall Street Journal", url: "https://www.wsj.com" },
+      { name: "The Guardian", url: "https://www.theguardian.com" },
+    ],
     name: "Newspaper",
     kind: "style",
     tagline: "The front page, on screen.",
@@ -244,6 +281,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "magazine",
+    examples: [
+      { name: "Wired", url: "https://www.wired.com" },
+      { name: "Vogue", url: "https://www.vogue.com" },
+    ],
     name: "Magazine",
     kind: "style",
     tagline: "Art-directed and expressive.",
@@ -268,6 +309,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "data-dense",
+    examples: [
+      { name: "Bloomberg", url: "https://www.bloomberg.com" },
+      { name: "GitHub", url: "https://github.com" },
+    ],
     name: "Data Dense",
     kind: "style",
     tagline: "Maximum information per pixel.",
@@ -292,6 +337,7 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "apple-inspired",
+    examples: [{ name: "Apple", url: "https://www.apple.com" }],
     name: "Apple Inspired",
     kind: "style",
     tagline: "Product as hero, space as luxury.",
@@ -316,6 +362,10 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "material-design",
+    examples: [
+      { name: "Material Design 3", url: "https://m3.material.io" },
+      { name: "Google", url: "https://www.google.com" },
+    ],
     name: "Material Design",
     kind: "style",
     tagline: "Paper, ink, and elevation.",
@@ -364,6 +414,7 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "neo-brutalist",
+    examples: [{ name: "Gumroad", url: "https://gumroad.com" }],
     name: "Neo Brutalist",
     kind: "style",
     tagline: "Brutalism with a designer's eye.",
@@ -388,6 +439,7 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "swiss",
+    examples: [{ name: "Swissted", url: "https://www.swissted.com" }],
     name: "Swiss",
     kind: "style",
     tagline: "Grid, type, objectivity.",
@@ -412,6 +464,11 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "modern-saas",
+    examples: [
+      { name: "Stripe", url: "https://stripe.com" },
+      { name: "Linear", url: "https://linear.app" },
+      { name: "Vercel", url: "https://vercel.com" },
+    ],
     name: "Modern SaaS",
     kind: "style",
     tagline: "The default of the well-funded startup.",
@@ -460,6 +517,7 @@ export const styles: LibraryEntry[] = [
   },
   {
     slug: "cyberpunk",
+    examples: [{ name: "Cyberpunk 2077", url: "https://www.cyberpunk.net" }],
     name: "Cyberpunk",
     kind: "style",
     tagline: "Neon, glitch, and chrome.",
