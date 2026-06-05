@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { CopyButton } from "@/components/client/copy-button";
 import { DeleteProfileButton } from "@/components/client/delete-profile-button";
+import { ExportTabs } from "@/components/client/export-tabs";
 import { PromptTabs } from "@/components/client/prompt-tabs";
+import { EXPORT_FORMATS, buildExport } from "@/lib/ai/exports";
 import { PROMPT_TOOLS } from "@/lib/ai/prompts";
 import type { DnaProfile } from "@/lib/ai/schemas";
 import { requireUser } from "@/lib/dal";
@@ -58,6 +59,14 @@ async function ProfileDetail({ id }: { id: string }) {
     )
     .map((p) => ({ tool: p.tool, label: labelFor(p.tool), content: p.content }));
 
+  const exports = EXPORT_FORMATS.map((f) => ({
+    format: f.value,
+    label: f.label,
+    filename: f.filename,
+    blurb: f.blurb,
+    content: buildExport(profile, f.value),
+  }));
+
   return (
     <div className="mt-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -97,6 +106,18 @@ async function ProfileDetail({ id }: { id: string }) {
         </p>
         <div className="mt-5">
           <PromptTabs prompts={prompts} />
+        </div>
+      </section>
+
+      <section className="mt-14">
+        <h2 className="font-serif text-2xl tracking-tight">Take it with you</h2>
+        <p className="mt-2 max-w-xl text-sm text-muted">
+          Reusable artifacts you keep and drop into a project — a CLAUDE.md
+          section, a Claude Code skill, or a standalone style guide. Copy or
+          download.
+        </p>
+        <div className="mt-5">
+          <ExportTabs exports={exports} />
         </div>
       </section>
     </div>
