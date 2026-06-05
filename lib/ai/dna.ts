@@ -12,6 +12,9 @@ export type MixComponentInput = {
   traits: string[];
   typography: string;
   tags: string[];
+  // Elements the user specifically tagged as liked on this influence (from
+  // pattern extraction). Empty when nothing was tagged.
+  liked: string[];
 };
 
 export type MixInput = {
@@ -29,7 +32,11 @@ function describeMix(mix: MixInput): string {
     const w =
       mix.mode === "weighted" && c.weight != null ? ` (${c.weight}%)` : "";
     const focus = c.focus ? ` — borrow specifically its ${patternLabel(c.focus)}` : "";
-    return `- ${c.name}${w}${focus}\n  traits: ${c.traits.slice(0, 5).join(", ")}\n  type: ${c.typography}`;
+    const liked =
+      c.liked.length > 0
+        ? `\n  liked elements: ${c.liked.map(patternLabel).join(", ")}`
+        : "";
+    return `- ${c.name}${w}${focus}\n  traits: ${c.traits.slice(0, 5).join(", ")}\n  type: ${c.typography}${liked}`;
   });
 
   return `Blend name: ${mix.name}
@@ -38,7 +45,7 @@ Blend mode: ${mix.mode === "weighted" ? "weighted percentages" : "equal/additive
 Influences:
 ${lines.join("\n")}
 
-Produce a unified design profile from this blend. Honor the weights — higher-percentage influences should dominate the resulting direction.`;
+Produce a unified design profile from this blend. Honor the weights — higher-percentage influences should dominate the resulting direction. When an influence lists liked elements, give those specific elements extra weight in the profile.`;
 }
 
 export async function generateDnaProfile(mix: MixInput): Promise<{

@@ -13,6 +13,7 @@ import {
   mixComponents,
   mixes,
 } from "@/lib/db/schema";
+import { getPatternTagsBySlug } from "@/lib/queries/patterns";
 
 export async function generateProfile(mixId: string) {
   const user = await requireUser();
@@ -25,6 +26,10 @@ export async function generateProfile(mixId: string) {
   if (mix.components.length === 0) {
     throw new Error("Add at least one influence to the mix first.");
   }
+
+  // Per-influence elements the user tagged as liked, so the profile leans into
+  // the specifics they cared about rather than discarding that signal.
+  const tagsBySlug = await getPatternTagsBySlug(user.id);
 
   const input: MixInput = {
     name: mix.name,
@@ -39,6 +44,7 @@ export async function generateProfile(mixId: string) {
         traits: e?.traits ?? [],
         typography: e?.typography ?? "",
         tags: e?.tags ?? [],
+        liked: tagsBySlug[c.librarySlug] ?? [],
       };
     }),
   };
