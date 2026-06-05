@@ -1,8 +1,8 @@
 import type { LibraryEntry } from "./types";
 
-// Sixteen specific brand/product influences. Traits describe widely-recognized
-// design characteristics; palettes are representative references, not exact
-// brand specifications.
+// Twenty-six specific brand/product influences. Traits describe
+// widely-recognized design characteristics; palettes are representative
+// references, not exact brand specifications.
 export const influences: LibraryEntry[] = [
   {
     slug: "financial-times",
@@ -403,5 +403,254 @@ export const influences: LibraryEntry[] = [
       "A clean neutral sans with comfortable sizing and a calm hierarchy.",
     tags: ["ai", "minimal", "neutral", "calm", "conversational"],
     url: "https://openai.com",
+  },
+  {
+    slug: "figma",
+    name: "Figma",
+    kind: "influence",
+    tagline: "Multiplayer canvas, multicolor mark.",
+    summary:
+      "Figma wraps a neutral, low-chrome tool UI around an infinite canvas, with a playful multicolor logo and live multiplayer cursors. Serious craft with a friendly, collaborative streak.",
+    traits: [
+      "Infinite canvas surface",
+      "Multiplayer cursors and presence",
+      "Multicolor geometric logo",
+      "Neutral, low-chrome tool UI",
+      "Playful FigJam energy",
+    ],
+    palette: [
+      { name: "Red", hex: "#f24e1e" },
+      { name: "Purple", hex: "#a259ff" },
+      { name: "Blue", hex: "#1abcfe" },
+      { name: "Green", hex: "#0acf83" },
+    ],
+    typography:
+      "A clean neutral sans for the UI; the brand leans on color and shape over type.",
+    tags: ["design-tool", "colorful", "collaborative", "canvas", "playful"],
+    url: "https://www.figma.com",
+  },
+  {
+    slug: "spotify",
+    name: "Spotify",
+    kind: "influence",
+    tagline: "Sound in vivid green.",
+    summary:
+      "A near-black canvas lets album art and duotone photography glow, anchored by one unmistakable green. Bold circular type and gradient-washed playlists give it a confident, music-first energy.",
+    traits: [
+      "Near-black canvas",
+      "Vivid signature green",
+      "Duotone photography",
+      "Bold circular sans",
+      "Gradient playlist art",
+    ],
+    palette: [
+      { name: "Spotify Green", hex: "#1ed760" },
+      { name: "Black", hex: "#121212" },
+      { name: "White", hex: "#ffffff" },
+      { name: "Gray", hex: "#b3b3b3" },
+    ],
+    typography:
+      "Spotify Circular — a geometric sans, heavy and confident for headings.",
+    tags: ["music", "dark", "bold", "vivid", "media"],
+    url: "https://www.spotify.com",
+  },
+  {
+    slug: "duolingo",
+    name: "Duolingo",
+    kind: "influence",
+    tagline: "Gamified, rounded, relentlessly friendly.",
+    summary:
+      "Bright green, a chunky rounded display face, and a cast of expressive mascots turn language drills into a game. Big 3D push-buttons, celebratory animation, and instant feedback keep it moving.",
+    traits: [
+      "Bright friendly green",
+      "Chunky rounded display type",
+      "Mascot-driven personality",
+      "3D push-button controls",
+      "Celebratory micro-animation",
+    ],
+    palette: [
+      { name: "Feather Green", hex: "#58cc02" },
+      { name: "Eel", hex: "#4b4b4b" },
+      { name: "Snow", hex: "#ffffff" },
+      { name: "Macaw", hex: "#1cb0f6" },
+    ],
+    typography:
+      "Feather Bold (a rounded din) for display; a clean sans for body.",
+    tags: ["gamified", "playful", "rounded", "mascot", "education"],
+    url: "https://www.duolingo.com",
+  },
+  {
+    slug: "mailchimp",
+    name: "Mailchimp",
+    kind: "influence",
+    tagline: "Quirky, illustrated, unmistakably yellow.",
+    summary:
+      "Cavendish yellow, near-black ink, and a Cooper-style serif give Mailchimp a warm, off-kilter editorial voice. Hand-drawn illustration and a sense of humor keep a marketing tool feeling human.",
+    traits: [
+      "Cavendish yellow and black",
+      "Cooper-style serif display",
+      "Hand-drawn illustration",
+      "Warm, off-kilter editorial",
+      "Playful, human tone",
+    ],
+    palette: [
+      { name: "Cavendish Yellow", hex: "#ffe01b" },
+      { name: "Ink", hex: "#241c15" },
+      { name: "Peppercorn", hex: "#3c3c3c" },
+      { name: "White", hex: "#ffffff" },
+    ],
+    typography:
+      "Cooper Light (serif) for display, a clean grotesque for UI and body.",
+    tags: ["marketing", "editorial", "illustrated", "warm", "quirky"],
+    url: "https://www.mailchimp.com",
+  },
+  {
+    slug: "discord",
+    name: "Discord",
+    kind: "influence",
+    tagline: "Blurple, rounded, built for hanging out.",
+    summary:
+      "Discord's blurple accent, rounded everything, and friendly illustration make a power-user chat app feel casual and welcoming. Solid dark and light themes with chunky, approachable controls.",
+    traits: [
+      "Blurple signature accent",
+      "Rounded, friendly UI",
+      "Robust dark and light themes",
+      "Playful illustration",
+      "Chunky, approachable controls",
+    ],
+    palette: [
+      { name: "Blurple", hex: "#5865f2" },
+      { name: "Dark", hex: "#313338" },
+      { name: "White", hex: "#ffffff" },
+      { name: "Green", hex: "#23a55a" },
+    ],
+    typography: "gg sans — a rounded, friendly sans across UI and headings.",
+    tags: ["chat", "playful", "rounded", "community", "dark"],
+    url: "https://discord.com",
+  },
+  {
+    slug: "aesop",
+    name: "Aesop",
+    kind: "influence",
+    tagline: "Apothecary restraint.",
+    summary:
+      "A calm, cream-toned canvas, generous margins, and quietly classical type give Aesop its understated luxury. Product-forward and editorial, with almost no color and a lot of confidence.",
+    traits: [
+      "Cream, paper-warm palette",
+      "Generous margins and whitespace",
+      "Quiet classical typography",
+      "Product-forward restraint",
+      "Editorial, unhurried pacing",
+    ],
+    palette: [
+      { name: "Cream", hex: "#efebe2" },
+      { name: "Ink", hex: "#33312e" },
+      { name: "Stone", hex: "#a8a195" },
+      { name: "Olive", hex: "#5b5a3f" },
+    ],
+    typography:
+      "A restrained grotesque paired with a classical serif for editorial moments.",
+    tags: ["luxury", "minimal", "editorial", "warm", "restrained"],
+    url: "https://www.aesop.com",
+  },
+  {
+    slug: "teenage-engineering",
+    name: "Teenage Engineering",
+    kind: "influence",
+    tagline: "Industrial, Swiss, playfully technical.",
+    summary:
+      "Stark white space, a strict grid, and a neutral grotesque used like a control panel — labels, numbers, primary-color accents. Utilitarian hardware design language brought to the screen.",
+    traits: [
+      "Stark white, strict grid",
+      "Neutral grotesque, used technically",
+      "Primary-color signal accents",
+      "Labeled, numbered, diagrammatic",
+      "Product-photography forward",
+    ],
+    palette: [
+      { name: "White", hex: "#ffffff" },
+      { name: "Black", hex: "#111111" },
+      { name: "Signal Red", hex: "#ff0000" },
+      { name: "Yellow", hex: "#ffd500" },
+    ],
+    typography:
+      "A Helvetica-like grotesque set tightly and technically, like instrument labels.",
+    tags: ["industrial", "swiss", "technical", "minimal", "hardware"],
+    url: "https://teenage.engineering",
+  },
+  {
+    slug: "nothing",
+    name: "Nothing",
+    kind: "influence",
+    tagline: "Dot-matrix monochrome.",
+    summary:
+      "Pure black and white, a dot-matrix display face, and glyph and LED motifs give Nothing its transparent, industrial-tech identity. Minimal to the point of severity, with a single red dot for warmth.",
+    traits: [
+      "Pure black-and-white base",
+      "Dot-matrix display type",
+      "Glyph and LED motifs",
+      "Transparency and exposed parts",
+      "Severe, industrial minimalism",
+    ],
+    palette: [
+      { name: "Black", hex: "#000000" },
+      { name: "White", hex: "#ffffff" },
+      { name: "Gray", hex: "#999999" },
+      { name: "Dot Red", hex: "#d71921" },
+    ],
+    typography:
+      "Ndot (a dot-matrix face) for display; a plain grotesque for body.",
+    tags: ["tech", "monochrome", "industrial", "minimal", "dot-matrix"],
+    url: "https://nothing.tech",
+  },
+  {
+    slug: "slack",
+    name: "Slack",
+    kind: "influence",
+    tagline: "Aubergine and a colorful pinwheel.",
+    summary:
+      "A deep aubergine anchored by a four-color pinwheel mark, with rounded, friendly UI and clear messaging hierarchy. Approachable and organized — work software that doesn't feel like it.",
+    traits: [
+      "Deep aubergine base",
+      "Four-color pinwheel accents",
+      "Rounded, friendly UI",
+      "Clear messaging hierarchy",
+      "Organized, approachable tone",
+    ],
+    palette: [
+      { name: "Aubergine", hex: "#4a154b" },
+      { name: "Blue", hex: "#36c5f0" },
+      { name: "Green", hex: "#2eb67d" },
+      { name: "Red", hex: "#e01e5a" },
+    ],
+    typography:
+      "A friendly humanist sans (Hellix / Lato) with comfortable spacing.",
+    tags: ["productivity", "chat", "friendly", "rounded", "system"],
+    url: "https://slack.com",
+  },
+  {
+    slug: "canva",
+    name: "Canva",
+    kind: "influence",
+    tagline: "Approachable gradient creativity.",
+    summary:
+      "A purple-to-cyan gradient, rounded friendly UI, and a wall of colorful templates make design feel possible for anyone. Accessible and warm, optimized for confidence over craft anxiety.",
+    traits: [
+      "Purple-to-cyan gradient",
+      "Rounded, friendly UI",
+      "Colorful template grids",
+      "Accessible, beginner-first",
+      "Warm, encouraging tone",
+    ],
+    palette: [
+      { name: "Canva Purple", hex: "#8b3dff" },
+      { name: "Cyan", hex: "#00c4cc" },
+      { name: "Ink", hex: "#0e1318" },
+      { name: "White", hex: "#ffffff" },
+    ],
+    typography:
+      "Canva Sans — a friendly geometric sans with rounded, open forms.",
+    tags: ["design-tool", "gradient", "friendly", "colorful", "accessible"],
+    url: "https://www.canva.com",
   },
 ];
