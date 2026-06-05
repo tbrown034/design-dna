@@ -13,6 +13,7 @@ import {
   mixComponents,
   mixes,
 } from "@/lib/db/schema";
+import { tagPhrase } from "@/lib/patterns";
 import { getPatternTagsBySlug } from "@/lib/queries/patterns";
 
 export async function generateProfile(mixId: string) {
@@ -44,7 +45,7 @@ export async function generateProfile(mixId: string) {
         traits: e?.traits ?? [],
         typography: e?.typography ?? "",
         tags: e?.tags ?? [],
-        liked: tagsBySlug[c.librarySlug] ?? [],
+        liked: (tagsBySlug[c.librarySlug] ?? []).map(tagPhrase),
       };
     }),
   };

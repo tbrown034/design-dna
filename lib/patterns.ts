@@ -16,6 +16,16 @@ export const PATTERN_ELEMENTS = [
 
 export type PatternElement = (typeof PATTERN_ELEMENTS)[number]["value"];
 
+// A liked element with an optional free-text note ("what exactly I liked").
+export type PatternTag = { element: string; note: string | null };
+
 export function patternLabel(value: string): string {
   return PATTERN_ELEMENTS.find((p) => p.value === value)?.label ?? value;
+}
+
+// A display phrase for a tag: "Typography — love the mono labels", or just
+// "Typography" when there's no note. Used in AI prompts and summaries.
+export function tagPhrase(tag: PatternTag): string {
+  const label = patternLabel(tag.element);
+  return tag.note ? `${label} — ${tag.note}` : label;
 }

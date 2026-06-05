@@ -2,33 +2,45 @@
 
 import { useState, useTransition } from "react";
 import { setPatternTags } from "@/lib/actions/patterns";
-import { PATTERN_ELEMENTS } from "@/lib/patterns";
+import { PATTERN_ELEMENTS, type PatternTag } from "@/lib/patterns";
 
 export function PatternTagger({
   slug,
   initial,
 }: {
   slug: string;
-  initial: string[];
+  initial: PatternTag[];
 }) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<Set<string>>(new Set(initial));
+  // element -> note ("" when none). Presence in the map means "selected".
+  const [selected, setSelected] = useState<Map<string, string>>(
+    () => new Map(initial.map((t) => [t.element, t.note ?? ""])),
+  );
   const [pending, startTransition] = useTransition();
 
   const count = selected.size;
 
   function toggle(value: string) {
     setSelected((prev) => {
-      const next = new Set(prev);
+      const next = new Map(prev);
       if (next.has(value)) next.delete(value);
-      else next.add(value);
+      else next.set(value, "");
+      return next;
+    });
+  }
+
+  function setNote(value: string, note: string) {
+    setSelected((prev) => {
+      const next = new Map(prev);
+      if (next.has(value)) next.set(value, note);
       return next;
     });
   }
 
   function save() {
+    const tags = [...selected].map(([element, note]) => ({ element, note }));
     startTransition(async () => {
-      await setPatternTags(slug, [...selected]);
+      await setPatternTags(slug, tags);
       setOpen(false);
     });
   }
@@ -43,7 +55,9 @@ export function PatternTagger({
         }}
         className="text-xs text-muted underline underline-offset-4 transition-colors hover:text-ink"
       >
-        {count > 0 ? `Liked: ${count} element${count > 1 ? "s" : ""}` : "Tag what you like"}
+        {count > 0
+          ? `Liked: ${count} element${count > 1 ? "s" : ""}`
+          : "Tag what you like"}
       </button>
     );
   }
@@ -73,6 +87,27 @@ export function PatternTagger({
           );
         })}
       </div>
+
+      {count > 0 && (
+        <div className="mt-3 space-y-2">
+          {PATTERN_ELEMENTS.filter((p) => selected.has(p.value)).map((p) => (
+            <label key={p.value} className="block">
+              <span className="font-mono text-[0.7rem] text-muted">
+                {p.label}
+              </span>
+              <input
+                type="text"
+                value={selected.get(p.value) ?? ""}
+                onChange={(e) => setNote(p.value, e.target.value)}
+                placeholder="what exactly? (optional)"
+                maxLength={280}
+                className="mt-1 w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 text-xs text-ink outline-none transition-colors focus:border-ink"
+              />
+            </label>
+          ))}
+        </div>
+      )}
+
       <div className="mt-3 flex items-center gap-3">
         <button
           type="button"

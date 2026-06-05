@@ -10,15 +10,26 @@ import { PATTERN_ELEMENTS, type PatternElement } from "@/lib/patterns";
 
 const VALID = new Set(PATTERN_ELEMENTS.map((p) => p.value));
 
-// Replaces the set of liked elements for a library entry. One extraction per
-// (user, library slug); tags are rewritten to match the selection.
-export async function setPatternTags(slug: string, elements: string[]) {
+// Replaces the set of liked elements (each with an optional note) for a library
+// entry. One extraction per (user, library slug); tags are rewritten to match
+// the selection.
+export async function setPatternTags(
+  slug: string,
+  tags: { element: string; note?: string | null }[],
+) {
   const user = await requireUser();
   if (!getEntry(slug)) throw new Error(`Unknown library item: ${slug}`);
 
-  const clean = [...new Set(elements)].filter((e) =>
-    VALID.has(e as PatternElement),
-  ) as PatternElement[];
+  // Validate, dedupe by element (first wins), and normalize notes.
+  const seen = new Set<PatternElement>();
+  const clean: { element: PatternElement; note: string | null }[] = [];
+  for (const t of tags) {
+    const element = t.element as PatternElement;
+    if (!VALID.has(element) || seen.has(element)) continue;
+    seen.add(element);
+    const note = (t.note ?? "").trim();
+    clean.push({ element, note: note ? note.slice(0, 280) : null });
+  }
 
   let [extraction] = await db
     .select()
@@ -54,9 +65,13 @@ export async function setPatternTags(slug: string, elements: string[]) {
   await db
     .delete(patternTags)
     .where(eq(patternTags.extractionId, extraction.id));
-  await db
-    .insert(patternTags)
-    .values(clean.map((element) => ({ extractionId: extraction.id, element })));
+  await db.insert(patternTags).values(
+    clean.map((t) => ({
+      extractionId: extraction.id,
+      element: t.element,
+      note: t.note,
+    })),
+  );
 
   revalidatePath("/saved");
 }

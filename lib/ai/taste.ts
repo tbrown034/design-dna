@@ -1,6 +1,5 @@
 import "server-only";
 import { zodResponseFormat } from "openai/helpers/zod";
-import { patternLabel } from "@/lib/patterns";
 import { AI_MODEL, openai } from "./client";
 import { TasteProfileSchema, type TasteProfileData } from "./taste-schema";
 
@@ -17,7 +16,7 @@ function describe(e: TasteEvidence): string {
     .map((s) => `${s.name} (${s.kind}; ${s.tags.slice(0, 4).join(", ")})`)
     .join("; ");
   const liked = e.likedElements
-    .map((l) => `${l.name}: ${l.elements.map(patternLabel).join(", ")}`)
+    .map((l) => `${l.name}: ${l.elements.join(", ")}`)
     .join("; ");
   const mixes = e.mixes
     .map((m) => `${m.name} = ${m.influences.join(" + ")}`)

@@ -12,8 +12,8 @@ export type MixComponentInput = {
   traits: string[];
   typography: string;
   tags: string[];
-  // Elements the user specifically tagged as liked on this influence (from
-  // pattern extraction). Empty when nothing was tagged.
+  // Display phrases for elements the user tagged as liked on this influence
+  // (e.g. "Header — love the hairline border"). Empty when nothing was tagged.
   liked: string[];
 };
 
@@ -33,9 +33,7 @@ function describeMix(mix: MixInput): string {
       mix.mode === "weighted" && c.weight != null ? ` (${c.weight}%)` : "";
     const focus = c.focus ? ` — borrow specifically its ${patternLabel(c.focus)}` : "";
     const liked =
-      c.liked.length > 0
-        ? `\n  liked elements: ${c.liked.map(patternLabel).join(", ")}`
-        : "";
+      c.liked.length > 0 ? `\n  liked elements: ${c.liked.join("; ")}` : "";
     return `- ${c.name}${w}${focus}\n  traits: ${c.traits.slice(0, 5).join(", ")}\n  type: ${c.typography}${liked}`;
   });
 

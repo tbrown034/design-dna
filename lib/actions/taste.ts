@@ -12,6 +12,7 @@ import {
   savedItems,
   tasteProfiles,
 } from "@/lib/db/schema";
+import { tagPhrase } from "@/lib/patterns";
 import { getPatternTagsBySlug } from "@/lib/queries/patterns";
 
 export async function generateTaste() {
@@ -43,9 +44,9 @@ export async function generateTaste() {
       })
       .filter((x): x is NonNullable<typeof x> => Boolean(x)),
     likedElements: Object.entries(tagsBySlug)
-      .map(([slug, elements]) => {
+      .map(([slug, tags]) => {
         const e = getEntry(slug);
-        return e ? { name: e.name, elements } : null;
+        return e ? { name: e.name, elements: tags.map(tagPhrase) } : null;
       })
       .filter((x): x is NonNullable<typeof x> => Boolean(x)),
     mixes: userMixes.map((m) => ({
